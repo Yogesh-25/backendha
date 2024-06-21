@@ -7,7 +7,7 @@ const User = require('../models/User')
 
 
 // Get cart items by username
-router.get('/:username', async (req, res) => {
+router.get('/cart/:username', async (req, res) => {
     const { username } = req.params;
     try {
         const user = await User.findOne({ username });

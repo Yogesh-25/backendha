@@ -23,10 +23,10 @@ const port = process.env.port|| 5000;
         console.log("MongoDB error", err);
     });*/
 
-const mongoURI = 'mongodb+srv://hoteldata:hoteldata@cluster0.m3napu1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-mongoose.connect(mongoURI,{
+const mongoURI = 'mongodb+srv://hoteldata:hoteldata@cluster0.1lpfrkl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+mongoose.connect(mongoURI, {
     serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
-  socketTimeoutMS: 45000,
+    socketTimeoutMS: 45000,
 })
     .then(() => {
         console.log("Connected to MongoDB...");

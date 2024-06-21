@@ -1,11 +1,18 @@
+
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const CartItem = require('../models/CartItem');
 
+// Get cart items by username
 router.get('/:username', async (req, res) => {
     const { username } = req.params;
     try {
-        const cartItems = await CartItem.find({ userId: username }).populate('menuItemId');
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        const cartItems = await CartItem.find({ userId: user._id }).populate('menuItemId');
         res.status(200).json({ cartItems });
     } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -17,6 +24,11 @@ router.get('/:username', async (req, res) => {
 router.post('/add', async (req, res) => {
     const { userId, menuItemId } = req.body;
     try {
+        // Ensure userId and menuItemId are valid ObjectIds
+        if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(menuItemId)) {
+            return res.status(400).json({ error: 'Invalid user ID or menu item ID' });
+        }
+
         let cartItem = await CartItem.findOne({ userId, menuItemId });
         if (cartItem) {
             cartItem.quantity++;
@@ -31,11 +43,15 @@ router.post('/add', async (req, res) => {
     }
 });
 
-
-// Remove item cart
+// Remove item from cart
 router.post('/remove', async (req, res) => {
     const { userId, menuItemId } = req.body;
     try {
+        // Ensure userId and menuItemId are valid ObjectIds
+        if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(menuItemId)) {
+            return res.status(400).json({ error: 'Invalid user ID or menu item ID' });
+        }
+
         let cartItem = await CartItem.findOne({ userId, menuItemId });
         if (!cartItem) {
             return res.status(404).json({ error: 'Item not found in cart' });

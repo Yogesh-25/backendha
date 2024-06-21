@@ -16,13 +16,13 @@ const reviewsRouter = require('./routes/Reviews');
 const cartItem = require('./routes/CartItem');
 const port = process.env.port|| 5000;
 
-mongoose.connect('mongodb://127.0.0.1:27017/hotel-data')
+/*mongoose.connect('mongodb://127.0.0.1:27017/hotel-data')
     .then(() => {
         console.log("Connected to MongoDB...")
     }).catch((err) => {
         console.log("MongoDB error", err);
-    });
-/*
+    });*/
+
 const mongoURI = 'mongodb+srv://hoteldata:hoteldata@cluster0.m3napu1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
@@ -33,7 +33,7 @@ mongoose.connect(mongoURI, {
     })
     .catch((err) => {
         console.error("MongoDB connection error:", err);
-    });*/
+    });
 
 
 app.use(bodyParser.json());

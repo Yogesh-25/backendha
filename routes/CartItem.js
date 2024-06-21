@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const CartItem = require('../models/CartItem');
+const User = require('../models/User')
+
 
 // Get cart items by username
 router.get('/:username', async (req, res) => {

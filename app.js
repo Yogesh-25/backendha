@@ -14,7 +14,7 @@ const categoriesRouter = require('./routes/categories');
 const productRoutes = require('./routes/products');
 const reviewsRouter = require('./routes/Reviews');
 const cartItem = require('./routes/CartItem');
-const port = 5000;
+const port = process.env.port|| 5000;
 
 mongoose.connect('mongodb://127.0.0.1:27017/hotel-data')
     .then(() => {
